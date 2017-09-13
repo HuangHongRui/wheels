@@ -1,7 +1,7 @@
 /*
-* 初始化瀑布流(jq依赖)
+* dependence: jquery
 * Waterfall.init($(selector));
-* author：charleslee
+* author：yunyu950908
 * */
 
 const Waterfall = (function () {
