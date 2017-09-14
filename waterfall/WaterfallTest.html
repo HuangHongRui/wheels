@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul, li {
+            margin: 10px;
+            padding: 0;
+            list-style: none;
+        }
+
+        ul {
+
+        }
+
+        ul > li {
+            width: 120px;
+            position: absolute;
+            transition: .3s;
+        }
+    </style>
+    <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+</head>
+<body>
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+<script>
+    const Waterfall = (function () {
+        function Waterfall($ct) {
+            this.$ct = $ct;
+            this.$items = null;
+            this.itemWidth = 0;
+            this.colNum = 0;
+            this.colSumHeight = [];
+            this.render();
+            this.resize()
+        }
+
+        Waterfall.prototype = {
+
+            render: function () {
+                this.$items = this.$ct.children();
+                // console.log(this.$items)
+                this.itemWidth = this.$items.outerWidth(true);
+                this.colNum = parseInt($(window).width() / this.itemWidth);
+                // console.log(this.colNum)
+                for (let i = 0; i < this.colNum; i++) {
+                    this.colSumHeight[i] = 0
+                }
+                this.$items.each((i, e) => {
+                    let minVal = Math.min.apply(null, this.colSumHeight);
+                    let minIndex = this.colSumHeight.indexOf(minVal);
+                    $(e).css({
+                        top: this.colSumHeight[minIndex],
+                        left: this.itemWidth * minIndex
+                    });
+                    this.colSumHeight[minIndex] += $(e).outerHeight(true)
+                })
+            },
+
+            resize: function () {
+                $(window).on("resize", () => {
+                    this.render()
+                })
+            }
+        };
+
+        return {
+            init: function ($ct) {
+                return new Waterfall($ct)
+            }
+        }
+    })();
+
+    const colors = ["#4049a7", "#00b708", "#dc2a3b", "#c44751", "#a585cd", "#a73e00", "#a75349", "#d2d2d2", "#5ea7a3", "#a757a3", "#5aa767", "#c3547a", "#4049a7", "#a74656", "#a7a445", "#4049a7", "#4049a7", "#4049a7", "#4049a7"];
+
+    [].forEach.call(document.querySelectorAll('ul > li'), function (a) {
+        a.style.background = colors[Math.floor(Math.random() * 19)];
+        a.style.height = (100 + Math.random() * 100) + "px"
+    })
+
+    Waterfall.init($("ul"));
+
+
+</script>
+</body>
+</html>

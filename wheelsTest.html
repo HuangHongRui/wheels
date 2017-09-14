@@ -1,13 +1,295 @@
-<!doctype html>
-<html lang="zh">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>carousel</title>
+    <style type=text/css>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .ct {
+            position: relative;
+            width: 480px;
+            height: 360px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .carousel {
+            width: 480px;
+            position: absolute;
+            left: -480px;
+            display: flex;
+        }
+
+        .pre, .next {
+            display: block;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            width: 30px;
+            height: 30px;
+            padding: 10px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            background: rgba(32, 178, 170, 0.6);
+            user-select: none;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+        }
+
+        .pre:hover, .next:hover {
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(32, 178, 170, 0.8);
+        }
+
+        .pre {
+            left: 6px;
+        }
+
+        .next {
+            right: 6px;
+        }
+
+        .bullet {
+            display: flex;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0);
+            bottom: 28px;
+        }
+
+        .bullet > li {
+            display: block;
+            width: 30px;
+            height: 10px;
+            border-radius: 6px;
+            margin-right: 10px;
+            background: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+        }
+
+        .carousel .show {
+
+        }
+
+        .bullet .active {
+            background: rgba(32, 178, 170, 0.6);
+        }
+
+    </style>
 </head>
 <body>
+<div class="ct carousel1">
+    <ul class="carousel">
+        <li class="show">
+            <a href="javascript:;">
+                <img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg" alt="">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg" alt="">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg" alt="">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg" alt="">
+            </a>
+        </li>
+    </ul>
+    <ul class="bullet">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <span class="pre">PRE</span>
+    <span class="next">NEXT</span>
+</div>
+<div class="ct carousel2">
+    <ul class="carousel">
+        <li class="show">
+            <a href="javascript:;">
+                <img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg" alt="">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg" alt="">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg" alt="">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg" alt="">
+            </a>
+        </li>
+    </ul>
+    <ul class="bullet">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <span class="pre">PRE</span>
+    <span class="next">NEXT</span>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type=text/javascript>
 
+    let CarouselCenter = (function () {
+
+        function Carousel(curCarousel) {
+            this.ct = curCarousel;
+            this.init();
+        }
+
+        Carousel.prototype = {
+            init: function () {
+                this.carousel = $(this.ct).find(".carousel")[0];
+                this.allImg = this.getChildren(this.carousel, "li");
+                this.bullets = $(this.ct).find(".bullet > li");
+                this.imgLen = this.allImg.length;
+                this.imgIndex = 0;
+                this.isAnimate = false;
+                //绑定执行
+                this.bind();
+            },
+
+            getChildren: function (parent, ele) {
+                let children = parent.childNodes,
+                    lis = [];
+                children.forEach(function (child) {
+                    if (child.nodeType == 1 && child.nodeName.toLowerCase() == ele) {
+                        lis.push(child)
+                    }
+                })
+                return lis;
+            },
+
+            clone: function () {
+                let firstImg = this.allImg[0],
+                    lastImg = this.allImg[this.allImg.length - 1];
+                let cFirstImg = firstImg.cloneNode(true),
+                    cLastImg = lastImg.cloneNode(true);
+                this.carousel.appendChild(cFirstImg);
+                this.carousel.insertBefore(cLastImg, firstImg);
+            },
+
+            playPre: function (num) {
+                let _this = this;
+                if (this.isAnimate == true) return;
+                this.isAnimate = true;
+                $(this.carousel).animate({
+                    left: "+=" + _this.carousel.clientWidth * num
+
+                }, function () {
+                    _this.imgIndex -= num;
+                    if (_this.imgIndex == -1) {
+                        _this.carousel.style.left = -_this.imgLen * _this.carousel.clientWidth + "px";
+                        _this.imgIndex = _this.imgLen - 1;
+                    }
+                    console.log(_this.imgIndex)
+                    _this.setBullet();
+                    _this.isAnimate = false;
+                })
+            },
+
+
+            playNext: function (num) {
+                let _this = this;
+                if (this.isAnimate == true) return;
+                this.isAnimate = true;
+                $(this.carousel).animate({
+                    left: "-=" + _this.carousel.clientWidth * num
+                }, function () {
+                    _this.imgIndex += num;
+                    if (_this.imgIndex == 4) {
+                        _this.carousel.style.left = -_this.carousel.clientWidth + "px";
+                        _this.imgIndex = 0;
+                    }
+                    console.log(_this.imgIndex)
+                    _this.setBullet();
+                    _this.isAnimate = false;
+                })
+            },
+
+
+            setBullet: function () {
+                this.bullets.each(function (i, bullet) {
+                    bullet.classList.remove("active");
+                })
+                this.bullets[this.imgIndex].classList.add("active");
+            },
+
+            playBullet: function () {
+                let _this = this;
+                this.bullets.each(function (i, j) {
+                    j.addEventListener("click", function () {
+                        if (i > _this.imgIndex) {
+                            _this.playNext(i - _this.imgIndex);
+                        } else {
+                            _this.playPre(_this.imgIndex - i);
+                        }
+                        _this.setBullet();
+                    })
+                })
+            },
+
+
+            bind: function () {
+                this.clone();
+                let _this = this;
+                let preBtn = $(this.ct).find(".pre")[0],
+                    nextBtn = $(this.ct).find(".next")[0];
+                preBtn.addEventListener("click", function () {
+                    _this.playPre(1)
+                })
+                nextBtn.addEventListener("click", function () {
+                    _this.playNext(1)
+                })
+                this.playBullet()
+            }
+
+        }
+        return {
+            init: function (node) {
+                let allCarousel = document.querySelectorAll(node);
+                allCarousel.forEach(function (e) {
+                    new Carousel(e)
+                })
+            }
+        }
+    })()
+
+    CarouselCenter.init(".ct")
+
+
+    //    let carousel1 = new Carousel(".carousel1");
+    //
+    //    let carousel2 = new Carousel(".carousel2");
+</script>
 </body>
 </html>

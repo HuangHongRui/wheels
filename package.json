@@ -1,0 +1,22 @@
+{
+  "name": "wheels",
+  "version": "1.0.0",
+  "description": ":hammer:  业余抢后排，无聊造轮子 :hammer:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yunyu950908/wheels.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yunyu950908/wheels/issues"
+  },
+  "homepage": "https://github.com/yunyu950908/wheels#readme",
+  "dependencies": {
+  }
+}

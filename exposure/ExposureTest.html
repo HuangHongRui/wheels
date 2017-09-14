@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exposure</title>
+    <style type=text/css>
+        .test {
+            margin: 1000px auto;
+        }
+    </style>
+    <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+</head>
+<body>
+<div class="test">test1</div>
+<div class="test">test2</div>
+<div class="test">test3</div>
+<div class="test">test4</div>
+<div class="test">test5</div>
+
+<script type=text/javascript>
+    const Exposure = (function () {
+        function Exposure($target, callback) {
+            this.$target = $target;
+            this.callback = callback;
+            this.bind();
+        }
+
+        Exposure.prototype = {
+            // bind scroll event
+            bind: function () {
+                $(window).on("scroll", () => {
+                    if (this.$target.hasClass("load")) {
+                        return;
+                    } else {
+                        this.check();
+                    }
+                })
+
+            },
+
+            // check load status
+            check: function () {
+                if (this.isShow()) {
+                    console.log(this.isShow())
+                    this.callback(this.$target);
+                    this.$target.addClass("load")
+                }
+            },
+
+            // target show status *
+            isShow: function () {
+                let windowHeight = $(window).height(),
+                    scrollHeight = $(window).scrollTop(),
+                    offsetTop = this.$target.offset().top,
+                    targetHeight = this.$target.height();
+                // check top and bottom border
+                if (windowHeight + scrollHeight > offsetTop && offsetTop + targetHeight > scrollHeight) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+        }
+
+        // return api
+        return {
+            init: function ($targets, callback) {
+                $targets.each((idx, target) => {
+                    new Exposure($(target), callback)
+                })
+            }
+        }
+    })();
+
+    function showImg($imgs) {
+        let imgUrl = $imgs.attr("data-src");
+        $imgs.attr("src", imgUrl);
+    }
+
+    function test($ts) {
+        setTimeout(() => {
+            $ts.text($ts.text() + "--123");
+        }, 500)
+    }
+
+    Exposure.init($(".test"), test)
+
+</script>
+</body>
+</html>
