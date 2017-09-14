@@ -5,18 +5,19 @@
 * */
 
 const Waterfall = (function () {
-    class waterfall {
-        constructor($ct) {
-            this.$ct = $ct;
-            this.$items = null;
-            this.itemWidth = 0;
-            this.colNum = 0;
-            this.colSumHeight = [];
-            this.render();
-            this.resize()
-        }
+    function Waterfall($ct) {
+        this.$ct = $ct;
+        this.$items = null;
+        this.itemWidth = 0;
+        this.colNum = 0;
+        this.colSumHeight = [];
+        this.render();
+        this.resize()
+    }
 
-        render() {
+    Waterfall.prototype = {
+
+        render: function () {
             this.$items = this.$ct.children();
             this.itemWidth = this.$items.outerWidth(true);
             this.colNum = parseInt($(window).width() / this.itemWidth);
@@ -32,14 +33,14 @@ const Waterfall = (function () {
                 });
                 this.colSumHeight[minIndex] += $(e).outerHeight(true)
             })
-        }
+        },
 
-        resize() {
+        resize: function () {
             $(window).on("resize", () => {
                 this.render()
             })
         }
-    }
+    };
 
     return {
         init: function ($ct) {

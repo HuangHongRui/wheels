@@ -5,21 +5,21 @@
 * */
 
 const Toast = (function () {
-    class toast {
-        constructor(msg, time) {
-            this.msg = msg;
-            this.dismissTime = time || 1000;
-            this.createToast();
-            this.showToast();
-        }
+    function Toast(msg, time) {
+        this.msg = msg;
+        this.dismissTime = time || 1000;
+        this.createToast();
+        this.showToast();
+    }
 
-        createToast() {
+    Toast.prototype = {
+        createToast: function () {
             const tpl = '<div class="toast">' + this.msg + '</div>';
             this.$toast = $(tpl);
             $('body').append(this.$toast);
-        }
+        },
 
-        showToast() {
+        showToast: function () {
             this.$toast.fadeIn(300, () => {
                 setTimeout(() => {
                     this.$toast.fadeOut(300, () => {
@@ -29,11 +29,11 @@ const Toast = (function () {
             });
 
         }
-    }
+    };
 
     return {
         init: function (msg, time) {
-            return new toast(msg, time)
+            return new Toast(msg, time)
         }
     }
 })();
