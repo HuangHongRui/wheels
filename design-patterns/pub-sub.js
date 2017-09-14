@@ -1,10 +1,10 @@
 /*
 * dependence: none
 * publish / subscribe
-* EventCenter.on(evt, fn)
-* EventCenter.once(evt, fn)
-* EventCenter.fire(evt)
-* EventCenter.off(evt)
+* EventCenter.on(evt, fn) // set event handler
+* EventCenter.once(evt, fn) // set , and this event will be triggered at most once
+* EventCenter.fire(evt) // trigger event
+* EventCenter.off(evt) // remove event
 * author：yunyu950908
 * */
 
@@ -13,32 +13,32 @@ const EventCenter = (function () {
     const events = {};
 
     function on(evt, fn) {
-        if (this.events[evt]) {
-            this.events[evt].push(fn);
+        if (events[evt]) {
+            events[evt].push(fn);
         } else {
-            this.events[evt] = [fn];
+            events[evt] = [fn];
         }
     }
 
     function once(evt, fn) {
-        if (this.onceEvent[evt]) {
-            this.onceEvent[evt].push(fn);
+        if (onceEvent[evt]) {
+            onceEvent[evt].push(fn);
         } else {
-            this.onceEvent[evt] = [fn];
+            onceEvent[evt] = [fn];
         }
     }
 
     function fire(evt) {
-        if (this.events[evt]) {
-            this.events[evt].forEach((fn) => {
+        if (events[evt]) {
+            events[evt].forEach((fn) => {
                 fn();
             });
         }
-        if (this.onceEvent[evt]) {
-            this.onceEvent[evt].forEach((fn) => {
+        if (onceEvent[evt]) {
+            onceEvent[evt].forEach((fn) => {
                 fn();
             });
-            this.onceEvent[evt] = [];
+            onceEvent[evt] = [];
         }
     }
 

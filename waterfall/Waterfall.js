@@ -19,12 +19,14 @@ const Waterfall = (function () {
 
         render: function () {
             this.$items = this.$ct.children();
+            // console.log(this.$items)
             this.itemWidth = this.$items.outerWidth(true);
             this.colNum = parseInt($(window).width() / this.itemWidth);
+            // console.log(this.colNum)
             for (let i = 0; i < this.colNum; i++) {
                 this.colSumHeight[i] = 0
             }
-            this.$items.each(e => {
+            this.$items.each((i, e) => {
                 let minVal = Math.min.apply(null, this.colSumHeight);
                 let minIndex = this.colSumHeight.indexOf(minVal);
                 $(e).css({
@@ -44,7 +46,7 @@ const Waterfall = (function () {
 
     return {
         init: function ($ct) {
-            new waterfall($ct)
+            return new Waterfall($ct)
         }
     }
 })();
