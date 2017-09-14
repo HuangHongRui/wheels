@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>Event on</button>
+<button>Event fire</button>
+<button>Event off</button>
+<button>Event once</button>
+<script>
+    const EventCenter = (function () {
+        const onceEvent = {};
+        const events = {};
+
+        function on(evt, fn) {
+            if (events[evt]) {
+                events[evt].push(fn);
+            } else {
+                events[evt] = [fn];
+            }
+        }
+
+        function once(evt, fn) {
+            if (onceEvent[evt]) {
+                onceEvent[evt].push(fn);
+            } else {
+                onceEvent[evt] = [fn];
+            }
+        }
+
+        function fire(evt) {
+            if (events[evt]) {
+                events[evt].forEach((fn) => {
+                    fn();
+                });
+            }
+            if (onceEvent[evt]) {
+                onceEvent[evt].forEach((fn) => {
+                    fn();
+                });
+                onceEvent[evt] = [];
+            }
+        }
+
+        function off(evt) {
+            delete events[evt]
+        }
+
+        return {
+            on: on,
+            once: once,
+            fire: fire,
+            off: off,
+        }
+    })();
+
+    const btn = document.querySelectorAll("button")
+
+    btn[0].onclick = function () {
+        EventCenter.on("haha", () => {
+            console.log("fire haha success")
+        })
+        console.log("on haha success")
+    }
+
+    btn[1].onclick = function () {
+        EventCenter.fire("haha")
+        EventCenter.fire("miao")
+    }
+    btn[2].onclick = function () {
+        EventCenter.off("haha")
+    }
+    btn[3].onclick = function () {
+        EventCenter.once("miao", () => {
+            console.log("fire miao success")
+        })
+        console.log("on hehe success")
+    }
+</script>
+</body>
+</html>
