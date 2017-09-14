@@ -11,9 +11,10 @@
 
 3. [ Exposure load ](./exposure)
 
-4. [ Toast message ](./toast)
+4. [ design-patterns ](./design-patterns)
 
-5. [ Toast message ](./toast)
+- [ pub-sub ](./design-patterns/(pub-sub))
+
 
 
 
