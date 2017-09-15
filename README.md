@@ -15,6 +15,8 @@
 
 - [ pub-sub ](./design-patterns/(pub-sub))
 
+5. [ Carousel ](./carousel)
+
 
 
 
