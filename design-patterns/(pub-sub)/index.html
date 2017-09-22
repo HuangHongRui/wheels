@@ -3,12 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .show{
+            margin: 60px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 400px;
+            height: 300px;
+            border: 2px solid lightseagreen;
+        }
+
+    </style>
 </head>
 <body>
 <button>Event on</button>
 <button>Event fire</button>
 <button>Event off</button>
 <button>Event once</button>
+<div class="show"><p></p></div>
 <script>
     const EventCenter = (function () {
         const onceEvent = {};
@@ -57,26 +70,32 @@
     })();
 
     const btn = document.querySelectorAll("button")
+    const show = document.querySelector(".show > p")
 
     btn[0].onclick = function () {
         EventCenter.on("haha", () => {
+            show.innerText += "fire haha success——"
             console.log("fire haha success")
         })
+        show.innerText = "on haha success——"
         console.log("on haha success")
     }
 
     btn[1].onclick = function () {
         EventCenter.fire("haha")
-        EventCenter.fire("miao")
+        EventCenter.fire("once")
     }
     btn[2].onclick = function () {
+        show.innerText = "off haha success——"
         EventCenter.off("haha")
     }
     btn[3].onclick = function () {
-        EventCenter.once("miao", () => {
-            console.log("fire miao success")
+        EventCenter.once("once", () => {
+            show.innerText += "fire once success——"
+            console.log("fire once success")
         })
-        console.log("on hehe success")
+        show.innerText = "once once success——"
+        console.log("once once success")
     }
 </script>
 </body>
