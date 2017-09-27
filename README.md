@@ -7,7 +7,9 @@
 
 ## Directory
 
-1. [ waterfall layout ](./waterfall/WaterfallTest.html)
+0. [ waterfall layout ](./waterfall/WaterfallTest.html)
+
+1. [ barrel layout ](./barrel/barrelTest.html)
 
 2. [ Toast message ](./toast/ToastTest.html)
 
@@ -24,6 +26,6 @@
 
 8. [ Toast ](./toast/ToastTest.html)
 
-9. [ barrel layout ](./barrel/barrelTest.html)
+
 
 
