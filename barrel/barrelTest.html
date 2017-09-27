@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>木桶流</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style type=text/css>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .img-preview {
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .img-row {
+            margin-bottom: 8px;
+        }
+
+        .img-row:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .row-box {
+            float: left;
+            /*padding-top:20px;*/
+            /*padding-left: 20px;*/
+        }
+
+        .img-line .row-box:first-child {
+            padding-left: 0;
+        }
+
+        .btn {
+            width: 6rem;
+            height: 2rem;
+            outline: none;
+            border: 1px solid lightseagreen;
+            border-radius: .5rem;
+            background: transparent;
+            color: lightseagreen;
+            display: block;
+            margin: 5rem auto;
+            cursor: pointer;
+            transition: all .5s ease;
+        }
+
+        .btn:hover {
+            background: lightblue;
+        }
+    </style>
+</head>
+<body>
+<div class="img-preview"></div>
+<button class="btn">点击加载更多</button>
+<script type=text/javascript>
+    function Barrel(imgNum, baseHeight, $ct) {
+        this.$ct = $ct;
+        //this.imgNum = imgNum;
+        this.baseHeight = baseHeight;
+        this.rowList = [];
+        this.imgLoad(imgNum);
+    }
+
+    Barrel.prototype = {
+        getImgUrl: function (num) {
+            let urls = [];
+            for (let i = 0; i < num; i++) {
+                urls.push('https://uploadbeta.com/api/pictures/random/?key=性感&sort=' + parseInt(Math.random() * 1000))
+            }
+            //console.log(urls)
+            return urls;
+        },
+
+        imgLoad: function (num) {
+            let _this = this,
+                imgUrls = this.getImgUrl(num);
+            //循环每一个url，每次循环创建一张图
+            imgUrls.forEach((imgUrl) => {
+                //console.log(imgUrl);
+                let img = new Image();
+                img.src = imgUrl;
+                img.onload = () => {
+                    let originWidth = img.width,
+                        originHeight = img.height,
+                        ratio = originWidth / originHeight;
+                    //console.log($(img))
+                    let imgInfo = {
+                        target: $(img),
+                        width: _this.baseHeight * ratio,
+                        height: _this.baseHeight,
+                        ratio: ratio
+                    }
+                    _this.render(imgInfo)
+                }
+            })
+        },
+
+        render: function (imgInfo) {
+            let _this = this;
+            let rowList = this.rowList,
+                rowWidth = 0,
+                rowHeight = 0,
+                clientWidth = this.$ct.width(),
+                lastImgInfo = imgInfo;
+            this.rowList.push(imgInfo);
+            //console.log(this.rowList)
+            rowList.forEach((e) => {
+                //console.log(e)
+                rowWidth += e.width;
+                //console.log(rowWidth)
+                if (rowWidth > clientWidth) {
+                    rowList.pop();
+                    rowWidth = rowWidth - lastImgInfo.width;
+                    rowHeight = clientWidth * _this.baseHeight / rowWidth;
+
+                    _this.createRow(rowHeight);
+                    _this.rowList = [];
+                    _this.rowList.push(lastImgInfo);
+                }
+            })
+        },
+
+        createRow: function (rowHeight) {
+            let $rowCt = $('<div class="img-row"></div>');
+            this.rowList.forEach((imgInfo) => {
+                let $imgCt = $('<div class="row-box"></div>'),
+                    $img = imgInfo.target;
+                $img.height(rowHeight);
+                $imgCt.append($img);
+                $rowCt.append($imgCt);
+            })
+            //console.log(this.$ct)
+            this.$ct.append($rowCt);
+        },
+    }
+
+    let test = new Barrel(20, 350, $(".img-preview"))
+
+    $(".btn").on("click", function () {
+        new Barrel(20, 350, $(".img-preview"))
+    })
+</script>
+</body>
+</html>

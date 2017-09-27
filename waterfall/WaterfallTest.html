@@ -18,7 +18,7 @@
         }
 
         ul > li {
-            width: 120px;
+            width: 350px;
             position: absolute;
             transition: .3s;
         }
@@ -113,7 +113,7 @@
 
     [].forEach.call(document.querySelectorAll('ul > li'), function (a) {
         a.style.background = colors[Math.floor(Math.random() * 19)];
-        a.style.height = (100 + Math.random() * 100) + "px"
+        a.style.height = (300 + Math.random() * 300) + "px"
     })
 
     Waterfall.init($("ul"));
