@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 0 30px 100px;
+}
+
+.clearfix:after {
+  display: block;
+  content: "";
+  height: 0;
+  visibility: hidden;
+  clear: both;
+}
+
+@import "message.css";
+
+@import "button-a";
+
+@import "table";
+
+@import "info-box";
+
+@import "message-alert";
+
+@import "info-sheet";
+
+@import "nav-css";
+
+.section1, .section2 {
+  box-sizing: border-box;
+  float: left;
+  width: 50%;
+  border-right: 3px dotted #c2c2c2;
+}
+
+.section2 {
+  border: none;
+}
+
+.section2 iframe {
+  margin: 30px;
+}
+
+

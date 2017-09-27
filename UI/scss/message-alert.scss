@@ -1,0 +1,34 @@
+.message-alert {
+  .alert {
+    width: 600px;
+    margin: 30px 0;
+    padding: 1px 16px;
+    border-radius: 6px;
+    box-shadow: 0 5px 8px 0 #c2c2c2, 0 2px 5px 0 #ccc;
+    span {
+      font-size: 26px;
+      float: right;
+      color: #fff;
+      cursor: pointer;
+    }
+    h2, p {
+      margin: 6px;
+      color: #fff;
+    }
+    &.a1 {
+      background: #4caf50;
+    }
+
+    &.a2 {
+      background: #2196F3;
+    }
+
+    &.a3 {
+      background: #f44336;
+    }
+
+    &.a4 {
+      background: #ff9800;
+    }
+  }
+}

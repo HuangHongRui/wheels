@@ -1,0 +1,45 @@
+
+.button-a {
+  .container {
+    width: 600px;
+    margin: 30px 0;
+    text-align: center;
+    a {
+      text-decoration: none;
+      display: inline-block;
+      margin: 10px;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: #000;
+      &:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+      }
+    }
+    .b1, .b4, .b5 {
+      color: #fff;
+    }
+
+    .b1 {
+      background: #009688;
+    }
+
+    .b2 {
+      background: #ff9800;
+    }
+
+    .b3 {
+      background: #ffeb3b;
+    }
+
+    .b4 {
+      background: #f44336;
+    }
+
+    .b5 {
+      background: #4caf50;
+    }
+  }
+
+}

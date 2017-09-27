@@ -1,0 +1,56 @@
+.info-sheet {
+  .container {
+    width: 600px;
+    margin: 30px 0;
+    padding-bottom: 16px;
+    box-shadow: 0 3px 6px 0 #c2c2c2, 0 5px 8px 0 #ccc;
+    }
+
+  h2 {
+    padding: 16px;
+    background: #009688;
+    color: #fff;
+  }
+
+  form {
+    margin: 16px;
+    label {
+      color: #757575;
+      vertical-align: middle;
+    }
+
+    input[type="text"], textarea {
+      margin-bottom: 10px;
+      padding: 8px 0;
+      display: block;
+      border: none;
+      border-bottom: 1px solid #808080;
+      width: 100%;
+      outline: none;
+    }
+
+    button {
+      padding: 8px 16px;
+      color: #fff;
+      background: #009688;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    .user-info {
+      margin-bottom: 16px;
+      .sel {
+        width: 50%;
+        float: left;
+        input {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}

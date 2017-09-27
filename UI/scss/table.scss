@@ -1,0 +1,35 @@
+.table {
+  font-family: Arial, sans-serif;
+  width: 600px;
+  text-align: left;
+  .container {
+    width: 100%;
+    margin: 30px auto;
+    border: 1px solid #c2c2c2;
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    tr {
+      border: 1px solid #c2c2c2;
+    }
+
+    tr:nth-child(even) {
+      background: #f1f1f1;
+    }
+
+    th {
+      padding: 8px;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    td {
+      padding: 8px;
+    }
+
+    th {
+      color: #fff;
+      background: #4caf50;
+    }
+  }
+}

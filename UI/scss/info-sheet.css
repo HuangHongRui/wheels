@@ -1,0 +1,46 @@
+.info-sheet .container {
+  width: 600px;
+  margin: 30px auto;
+  padding-bottom: 16px;
+  box-shadow: 0 3px 6px 0 #c2c2c2, 0 5px 8px 0 #ccc; }
+.info-sheet .container h2 {
+  padding: 16px;
+  background: #009688;
+  color: #fff; }
+.info-sheet .container form {
+  margin: 16px; }
+.info-sheet .container form label {
+  color: #757575;
+  vertical-align: middle; }
+.info-sheet .container input[type="text"], .info-sheet textarea {
+  margin-bottom: 10px;
+  padding: 8px 0;
+  display: block;
+  border: none;
+  border-bottom: 1px solid #808080;
+  width: 100%;
+  outline: none; }
+.info-sheet .container .sel {
+  width: 50%;
+  float: left; }
+.info-sheet .container .sel input {
+  vertical-align: middle; }
+.info-sheet .clearfix {
+  margin-bottom: 16px; }
+.info-sheet .clearfix:after {
+  display: block;
+  content: "";
+  height: 0;
+  visibility: hidden;
+  clear: both; }
+.info-sheet .container button {
+  padding: 8px 16px;
+  color: #fff;
+  background: #009688;
+  border: none;
+  outline: none;
+  cursor: pointer; }
+.info-sheet .container textarea {
+  resize: none; }
+
+/*# sourceMappingURL=info-sheet.css.map */

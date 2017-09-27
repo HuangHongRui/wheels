@@ -1,0 +1,30 @@
+.info-box{
+  .container{
+    width: 300px;
+    margin: 30px ;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    img {
+      width: 100%;
+      opacity: 0.75;
+      filter: alpha(opacity=75);
+    }
+
+    div {
+      padding: 1px 16px;
+      text-align: center;
+      h1 {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 10px 0;
+      }
+      p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 16px 0;
+      }
+    }
+
+  }
+}
